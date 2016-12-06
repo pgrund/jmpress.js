@@ -1,0 +1,18 @@
+{
+  "name": "jmnpress-angular",
+  "version": "0.0.1",
+  "main": "dist/jmpress.all.min.js",
+  "dependencies": {
+    "angular": "^1.5.9",
+    "jquery": "^3.1.1"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "package.json",
+    "src",
+    "examples"
+  ]
+}
