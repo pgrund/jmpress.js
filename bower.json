@@ -1,5 +1,5 @@
 {
-  "name": "jmnpress-angular",
+  "name": "jmpress-angular",
   "version": "1.0.0",
   "main": "dist/jmpress.all.js",
   "dependencies": {
