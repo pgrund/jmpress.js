@@ -1,7 +1,7 @@
 {
   "name": "jmnpress-angular",
   "version": "0.0.1",
-  "main": "dist/jmpress.all.min.js",
+  "main": "dist/jmpress.all.js",
   "dependencies": {
     "angular": "^1.5.9",
     "jquery": "^3.1.1"
@@ -13,6 +13,15 @@
     "test",
     "package.json",
     "src",
-    "examples"
-  ]
+    "examples",
+    "tests"
+  ],
+  "homepage": "https://github.com/pgrund/jmpress.js",
+  "description": "angularified jmpress",
+  "keywords": [
+    "angular",
+    "jmpress",
+    "jquery"
+  ],
+  "license": "MIT"
 }
