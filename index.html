@@ -5,7 +5,7 @@
 	<title>jmpress.js | a jQuery plugin to build a website on the infinite canvas</title>
 
 	<meta name="description" content="jmpress.js is a jQuery plugin to build a website on the infinite canvas">
-	<meta name="author" content="Kyle Robinson Young @shama & Tobias Koppers @sokra" />
+	<meta name="author" content="Kyle Robinson Young @shama &amp; Tobias Koppers @sokra" />
 	<meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=no" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta http-equiv="expires" content="0">
@@ -18,13 +18,9 @@
 
 	<!-- demo style and animations -->
 	<link href="dist/demo.css" rel="stylesheet" type="text/css" />
-
-	<!-- jQuery and jmpress.js -->
-	<script type="text/javascript" src="test/libs/jquery/jquery.js"></script>
-	<script type="text/javascript" src="dist/jmpress.all.min.js"></script>
 </head>
-<body>
-	<!-- NAVIGATION -->
+<body ng-app="jmpress" ng-controller='ConfigController as config'>
+  <!-- NAVIGATION -->
 	<ul class="nav">
 		<li><a href="#home" class="go">HOME</a>&middot;
 		<li><a href="http://jmpressjs.github.com/docs/" target="_blank">DOCS</a>&middot;
@@ -36,8 +32,7 @@
 	</ul>
 	<div class="hint">YOU CAN USE YOUR ARROW KEYS OR SPACEBAR TO NAVIGATE</div>
 
-	<article class="jmpress">
-
+	<article class="jmpress" jmpress-root>
 		<!-- HOME -->
 		<section id="home">
 			<ul class="title"><li>j<li>m<li>p<li>r<li>e<li>s<li>s<li>.<li>j<li>s</ul>
@@ -282,6 +277,19 @@ $('#jmpress').jmpress({
 
 	</article>
 
+<!-- jQuery and jmpress.js -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<!--script src="jquery-migrate-1.4.1.js"></script-->
+<script type="text/javascript" src="dist/jmpress.all.js"></script>
+
+<script src="src/angular/jmpress.module.js" charset="utf-8"></script>
+<script src="src/angular/jmpress.service.js" charset="utf-8"></script>
+<script src="src/angular/initialstep.service.js" charset="utf-8"></script>
+<script src="src/angular/config.controller.js" charset="utf-8"></script>
+<script src="src/angular/root.directive.js" charset="utf-8"></script>
+<script src="src/angular/step.directive.js" charset="utf-8"></script>
+
 <script type="text/javascript">
 
 /* =============================================================================
@@ -289,88 +297,87 @@ $('#jmpress').jmpress({
    code is used than you'll likely need. Check out the examples for real world
    usage of jmpress.js.
    ========================================================================== */
-
-$.jmpress('register', 'demo', function() {
-	var jmpress = this;
+// $.jmpress('register', 'demo', function() {
+// 	var jmpress = this;
 
 	// template - step down/up and right/left
-	$.jmpress('template', 'stepper', {
-		children: function(i, child, children) {
-			if ($(child).parent().attr('id') === 'developer') {
-				return {
-					y: -(i+1)*300,
-					x: ((i-1)%2)*100
-				};
-			}
-			return {
-				y: (i+1)*250,
-				x: (i%2)*100
-			};
-		}
-	});
-
-	// apply secondary animation
-	$.jmpress('apply', '#secondary', {
-		secondary: {
-			rotate: { z: 20, x: 20, y:20 },
-			'': 'self'
-		}
-	});
-
-	// on each step hide/show nav
-	var setActive = function(step) {
-		if ($(step).attr('id') === 'home') {
-			$('.nav').fadeOut();
-			$('.hint').stop(true, true).delay(3000).fadeIn();
-		} else {
-			$('.nav').fadeIn();
-			$('.hint').stop(true, true).fadeOut();
-		}
-	};
-
-	// our main configuration
-	var config = {
-		stepSelector: 'section',
-		viewPort: {
-			width: 1300,
-			maxScale: 1
-		},
-		presentationMode: {
-			notesUrl: 'index.notes.html'
-		},
-		setActive: setActive
-	};
-
-	// START JMPRESS and enable esc key de-init toggle
-	$(this).jmpress('toggle', 27, config, true);
-
-	// start nested jmpress
-	$('.nested-jmpress').jmpress({
-		viewPort: { height: 150, width: 700, maxScale: 1 },
-		duration: { defaultValue: 3500, barSelector: '.progressbar-value' },
-		stepSelector: '.nested-step',
-		hash: { use: false },
-		fullscreen: false,
-		presentationMode: { use: false }
-	});
-
-	// handle nested internal nav links
-	$('.nested-go').click(function() {
-		$('.nested-jmpress').jmpress($(this).attr('href').slice(1));
-		//_gaq.push(['_trackEvent', 'Feature', 'NestedJmpress', "start"]);
-		return false;
-	});
-
-	// handle internal nav links
-	$('.go').click(function(e) {
-		e.preventDefault();
-		$(jmpress).jmpress($(this).attr('href').slice(1));
-	});
-});
+  // $.jmpress('template', 'stepper', {
+	// 	children: function(i, child, children) {
+	// 		if ($(child).parent().attr('id') === 'developer') {
+	// 			return {
+	// 				y: -(i+1)*300,
+	// 				x: ((i-1)%2)*100
+	// 			};
+	// 		}
+	// 		return {
+	// 			y: (i+1)*250,
+	// 			x: (i%2)*100
+	// 		};
+	// 	}
+	// });
+	//
+	// // apply secondary animation
+	// $.jmpress('apply', '#secondary', {
+	// 	secondary: {
+	// 		rotate: { z: 20, x: 20, y:20 },
+	// 		'': 'self'
+	// 	}
+	// });
+	//
+	// // on each step hide/show nav
+	// var setActive = function(step) {
+	// 	if ($(step).attr('id') === 'home') {
+	// 		$('.nav').fadeOut();
+	// 		$('.hint').stop(true, true).delay(3000).fadeIn();
+	// 	} else {
+	// 		$('.nav').fadeIn();
+	// 		$('.hint').stop(true, true).fadeOut();
+	// 	}
+	// };
+	//
+	// // our main configuration
+	// var config = {
+	// 	stepSelector: 'section',
+	// 	viewPort: {
+	// 		width: 1300,
+	// 		maxScale: 1
+	// 	},
+	// 	presentationMode: {
+	// 		notesUrl: 'index.notes.html'
+	// 	},
+	// 	setActive: setActive
+	// };
+	//
+	// // START JMPRESS and enable esc key de-init toggle
+	// $(this).jmpress('toggle', 27, config, true);
+	//
+	// // start nested jmpress
+	// $('.nested-jmpress').jmpress({
+	// 	viewPort: { height: 150, width: 700, maxScale: 1 },
+	// 	duration: { defaultValue: 3500, barSelector: '.progressbar-value' },
+	// 	stepSelector: '.nested-step',
+	// 	hash: { use: false },
+	// 	fullscreen: false,
+	// 	presentationMode: { use: false }
+	// });
+	//
+	// // handle nested internal nav links
+	// $('.nested-go').click(function() {
+	// 	$('.nested-jmpress').jmpress($(this).attr('href').slice(1));
+	// 	//_gaq.push(['_trackEvent', 'Feature', 'NestedJmpress', "start"]);
+	// 	return false;
+	// });
+	//
+	// // handle internal nav links
+	// $('.go').click(function(e) {
+	// 	e.preventDefault();
+	// 	$(jmpress).jmpress($(this).attr('href').slice(1));
+	// });
+	//
+// });
 
 // start the demo!
-$('.jmpress').jmpress('demo');
-
+// $('.jmpress').jmpress('demo');
 </script>
 
 </body>

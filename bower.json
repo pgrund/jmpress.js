@@ -7,14 +7,18 @@
     "jquery": "^3.1.1"
   },
   "ignore": [
-    "**/.*",
+    ".git",
+    ".?*",
+    "Gruntfile.js",
+    "*.js",
+    "yarn*",
     "node_modules",
     "bower_components",
     "test",
     "package.json",
     "src",
     "examples",
-    "tests"
+    "test"
   ],
   "homepage": "https://github.com/pgrund/jmpress.js",
   "description": "angularified jmpress",
